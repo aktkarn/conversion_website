@@ -1,0 +1,74 @@
+from flask import Flask, render_template, request, send_file
+import shutil  # shutil.copy(src, dst) can be used for pdf copy
+import os
+from html_to_xlsx import html_to_xlsx
+
+from convert_pdf_to_excel import *
+
+app = Flask(__name__)
+
+if os.path.exists('uploads'):
+    shutil.rmtree('uploads')
+os.mkdir('uploads')
+
+if os.path.exists('processed_files'):
+    shutil.rmtree('processed_files')
+os.mkdir('processed_files')
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+
+    if request.method == 'POST':
+        option = request.form['option']
+        if option == 'pdf_to_xlsx':
+            file = request.files['file']
+            filename = file.filename
+            pos_of_convert_from = len(filename) - filename.find('.')
+            file.save(os.path.join('uploads', filename))
+            pos_of_convert_to = option.find('to') + 3
+            do_the_job(filename, file, option)
+            return render_template('index.html', filename_source=filename, filename_output=filename[:-pos_of_convert_from+1] + option[pos_of_convert_to:], option=option, message='File uploaded successfully.')
+        elif option == 'html_to_xlsx':
+            link = request.form['link']
+            filename = os.path.basename(link)
+            do_the_job(filename, link, option)
+            return render_template('index.html', filename_source=filename, filename_output=filename + '.xlsx',
+                                   option=option, message='File uploaded successfully.')
+        else:
+            return render_template('index.html', message='Invalid option selected.')
+    return render_template('index.html')
+
+@app.route('/download/<filename>', methods=['GET'])
+def download(filename):
+    file_path = os.path.join('processed_files', filename)
+    if os.path.isfile(file_path):
+        return send_file(file_path, as_attachment=True)
+    return 'File not found.'
+
+
+@app.route('/close/<filename>', methods=['GET'])
+def close(filename):
+    option = request.args.get('option')  # Retrieve the 'option' parameter from the URL query string
+    file_source = 'uploads\\' + filename
+    file_dest_in = 'processed_files\\' + filename
+    pos_of_convert_from = len(filename) - filename.find('.')
+    pos_of_convert_to = option.find('to') + 3
+    file_dest_out = 'processed_files\\' + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
+
+    os.remove(file_source)
+    os.remove(file_dest_in)
+    os.remove(file_dest_out)
+
+    return 'Files removed successfully.'
+def do_the_job(filename, file, convert_A_to_B=None):
+
+    if convert_A_to_B == 'pdf_to_xlsx':
+        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        df_list = pdf_to_excel(filename) ## this gives list of different tables in the pdf
+    elif convert_A_to_B == 'html_to_xlsx':
+        df_list = html_to_xlsx(file, filename)
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
