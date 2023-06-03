@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, send_file
 import shutil  # shutil.copy(src, dst) can be used for pdf copy
 import os
 from html_to_xlsx import html_to_xlsx
-
-from convert_pdf_to_excel import *
+from pdf_to_xlsx import pdf_to_xlsx
+from pdf_to_docx import pdf_to_docx
 
 app = Flask(__name__)
 
@@ -20,7 +20,15 @@ def index():
 
     if request.method == 'POST':
         option = request.form['option']
-        if option == 'pdf_to_xlsx':
+        if option == 'none':
+            return render_template('index.html', message='Invalid option selected.')
+        elif ('html' in option) or ('link' in option):
+            link = request.form['link']
+            filename = os.path.basename(link)
+            do_the_job(filename, link, option)
+            return render_template('index.html', filename_source=filename, filename_output=filename + '.xlsx',
+                                   option=option, message='File uploaded successfully.')
+        else:
             file = request.files['file']
             filename = file.filename
             pos_of_convert_from = len(filename) - filename.find('.')
@@ -28,14 +36,7 @@ def index():
             pos_of_convert_to = option.find('to') + 3
             do_the_job(filename, file, option)
             return render_template('index.html', filename_source=filename, filename_output=filename[:-pos_of_convert_from+1] + option[pos_of_convert_to:], option=option, message='File uploaded successfully.')
-        elif option == 'html_to_xlsx':
-            link = request.form['link']
-            filename = os.path.basename(link)
-            do_the_job(filename, link, option)
-            return render_template('index.html', filename_source=filename, filename_output=filename + '.xlsx',
-                                   option=option, message='File uploaded successfully.')
-        else:
-            return render_template('index.html', message='Invalid option selected.')
+
     return render_template('index.html')
 
 @app.route('/download/<filename>', methods=['GET'])
@@ -64,9 +65,12 @@ def do_the_job(filename, file, convert_A_to_B=None):
 
     if convert_A_to_B == 'pdf_to_xlsx':
         shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
-        df_list = pdf_to_excel(filename) ## this gives list of different tables in the pdf
+        df_list = pdf_to_xlsx(filename) ## this gives list of different tables in the pdf
     elif convert_A_to_B == 'html_to_xlsx':
         df_list = html_to_xlsx(file, filename)
+    if convert_A_to_B == 'pdf_to_docx':
+        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        pdf_to_docx(filename)
 
 
 

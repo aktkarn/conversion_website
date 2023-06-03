@@ -1,7 +1,7 @@
 import tabula
 import pandas as pd
 
-def pdf_to_excel(file_name):
+def pdf_to_xlsx(file_name):
     src = 'uploads\\' + file_name
     dest = 'processed_files\\' + file_name[:-3] + 'xlsx'
 
@@ -17,4 +17,4 @@ def pdf_to_excel(file_name):
 if __name__ == '__main__':
     file_name = 'abc.pdf'
 
-    pdf_to_excel(file_name)
+    pdf_to_xlsx(file_name)
