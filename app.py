@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, send_file
 import shutil  # shutil.copy(src, dst) can be used for pdf copy
 import os
-from html_to_xlsx import html_to_xlsx
-from pdf_to_xlsx import pdf_to_xlsx
-from pdf_to_docx import pdf_to_docx
+from html_to_xlsx import *
+from pdf_to_xlsx import *
+from pdf_to_docx import *
 
 app = Flask(__name__)
 
@@ -68,9 +68,12 @@ def do_the_job(filename, file, convert_A_to_B=None):
         df_list = pdf_to_xlsx(filename) ## this gives list of different tables in the pdf
     elif convert_A_to_B == 'html_to_xlsx':
         df_list = html_to_xlsx(file, filename)
-    if convert_A_to_B == 'pdf_to_docx':
+    elif convert_A_to_B == 'pdf_to_docx':
         shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
         pdf_to_docx(filename)
+    elif convert_A_to_B == 'docx_to_pdf':
+        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        docx_to_pdf(filename)
 
 
 
