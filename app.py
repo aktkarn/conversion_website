@@ -50,11 +50,11 @@ def download(filename):
 @app.route('/close/<filename>', methods=['GET'])
 def close(filename):
     option = request.args.get('option')  # Retrieve the 'option' parameter from the URL query string
-    file_source = 'uploads\\' + filename
-    file_dest_in = 'processed_files\\' + filename
+    file_source = os.getcwd() + '\\uploads\\' + filename
+    file_dest_in = os.getcwd() + '\\processed_files\\' + filename
     pos_of_convert_from = len(filename) - filename.find('.')
     pos_of_convert_to = option.find('to') + 3
-    file_dest_out = 'processed_files\\' + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
+    file_dest_out = os.getcwd() + '\\processed_files\\' + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
 
     os.remove(file_source)
     os.remove(file_dest_in)
@@ -64,15 +64,15 @@ def close(filename):
 def do_the_job(filename, file, convert_A_to_B=None):
 
     if convert_A_to_B == 'pdf_to_xlsx':
-        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         df_list = pdf_to_xlsx(filename) ## this gives list of different tables in the pdf
     elif convert_A_to_B == 'html_to_xlsx':
         df_list = html_to_xlsx(file, filename)
     elif convert_A_to_B == 'pdf_to_docx':
-        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         pdf_to_docx(filename)
     elif convert_A_to_B == 'docx_to_pdf':
-        shutil.copy('uploads\\' + filename, 'processed_files\\' + filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         docx_to_pdf(filename)
 
 

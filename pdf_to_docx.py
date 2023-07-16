@@ -1,11 +1,13 @@
 from pdf2docx import Converter
 import win32com.client as win32
 from docx import Document
+import os
 
 def pdf_to_docx(file_name):
 
-    src = 'uploads\\' + file_name
-    dest = 'processed_files\\' + file_name[:-3] + 'docx'
+    src = os.getcwd() + '\\uploads\\' + file_name
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
+    print(dest)
     # Create a PDF to Word converter object
     cv = Converter(src)
 
@@ -17,9 +19,8 @@ def pdf_to_docx(file_name):
 
 
 def docx_to_pdf(file_name):
-
-    src = 'uploads\\' + file_name
-    dest = 'processed_files\\' + file_name[:-3] + 'docx'
+    src = os.getcwd() + '\\uploads\\' + file_name
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
     # Create a new Word application instance
     word_app = win32.gencache.EnsureDispatch('Word.Application')
 
@@ -34,11 +35,4 @@ def docx_to_pdf(file_name):
     word_app.Quit()
 
 if __name__ == '__main__':
-    # Specify the path of the input PDF file
-    pdf_file = 'abc.pdf'
-
-    # Specify the path for the output Word file
-    word_file = 'processed_files/abc.docx'
-
-    # Convert PDF to Word
-    pdf_to_docx(pdf_file)
+    pdf_to_docx('ADITYA PAL Resume.pdf')
