@@ -6,7 +6,7 @@ import os
 
 def pdf_to_xlsx(file_name):
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
+    dest = os.getcwd() +  file_name[:-3] + 'docx'
 
     csv = tabula.read_pdf(src, pages='all')
 

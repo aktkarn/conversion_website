@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload</title>
+  <script>
+    function toggleInputs() {
+      var select = document.getElementById("option");
+      var fileInput = document.getElementById("fileInput");
+      var linkInput = document.getElementById("linkInput");
+
+      if (select.value === "none") {
+        fileInput.style.display = "none";
+        linkInput.style.display = "none";
+      } else if (select.value === "pdf_to_xlsx") {
+        fileInput.style.display = "block";
+        linkInput.style.display = "none";
+      } else if (select.value === "html_to_xlsx") {
+        fileInput.style.display = "none";
+        linkInput.style.display = "block";
+      } else if (select.value === "pdf_to_docx") {
+        fileInput.style.display = "block";
+        linkInput.style.display = "none";
+      } else if (select.value === "docx_to_pdf") {
+        fileInput.style.display = "block";
+        linkInput.style.display = "none";
+      } else {
+        fileInput.style.display = "none";
+        linkInput.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>File Upload</h1>
+  <form action="/" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput" style="display: none;">
+    <input type="text" name="link" id="linkInput" style="display: none;">
+
+    <select name="option" id="option" onchange="toggleInputs()">
+      <option value="none"> Choose One of the following </option>
+      <option value="pdf_to_xlsx">Convert PDF to EXCEL</option>
+      <option value="html_to_xlsx">Convert HTML to EXCEL</option>
+      <option value="pdf_to_docx">Convert PDF to DOCX</option>
+      <option value="docx_to_pdf">Convert DOCX to PDF</option>
+    </select>
+    <input type="submit" value="Upload">
+  </form>
+
+  <h2>Download Source File</h2>
+  <a href="/download/{{ filename_source }}">Download {{ filename_source }}</a><br><br>
+  <h2>Download Output File</h2>
+  <a href="/download/{{ filename_output }}">Download {{ filename_output }}</a>
+
+  <h2>Close File</h2>
+  <a href="/close/{{ filename_source }}?option={{ option }}">Close {{ filename_source }}</a>
+</body>
+</html>

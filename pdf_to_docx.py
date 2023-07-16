@@ -6,7 +6,7 @@ import os
 def pdf_to_docx(file_name):
 
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
+    dest = os.getcwd() +  file_name[:-3] + 'docx'
     print(dest)
     # Create a PDF to Word converter object
     cv = Converter(src)
@@ -20,7 +20,7 @@ def pdf_to_docx(file_name):
 
 def docx_to_pdf(file_name):
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
+    dest = os.getcwd() +  file_name[:-3] + 'docx'
     # Create a new Word application instance
     word_app = win32.gencache.EnsureDispatch('Word.Application')
 
