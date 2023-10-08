@@ -35,4 +35,4 @@ def docx_to_pdf(file_name):
     word_app.Quit()
 
 if __name__ == '__main__':
-    pdf_to_docx('ADITYA PAL Resume.pdf')
+    pdf_to_docx('')
