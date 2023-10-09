@@ -18,6 +18,9 @@ frontend:
       - processed_files/**
       - uploads/**
 backend:
+  runtime:
+    name: python
+    version: 3.x
   phases:
     build:
       commands:
