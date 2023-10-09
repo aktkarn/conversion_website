@@ -20,7 +20,7 @@ frontend:
 backend:
   runtime:
     name: python
-    version: 3.x
+    version: 3.9
   phases:
     build:
       commands:
