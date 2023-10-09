@@ -1,0 +1,25 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - echo "No frontend build required for Flask app"
+  artifacts:
+    baseDirectory: .
+    files:
+      - app.py
+      - html_to_pdf.py
+      - html_to_xlsx.py
+      - pdf_to_docx.py
+      - pdf_to_xlsx.py
+      - requirements.txt
+      - templates/**  # Include the templates folder and its contents
+      - static/**     # Include the static folder and its contents
+      - processed_files/**
+      - uploads/**
+backend:
+  phases:
+    build:
+      commands:
+        - pip install -r requirements.txt
+        - amplifyPush --simple

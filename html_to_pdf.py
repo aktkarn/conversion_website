@@ -1,8 +1,14 @@
-import pdfkit
+import asyncio
+from pyppeteer import launch
 
-def html_to_pdf(link):
-    # Set the path to the `wkhtmltopdf` executable
-    pdfkit_config = pdfkit.configuration(wkhtmltopdf='/path/to/wkhtmltopdf')
+async def save_pdf(url, output_path):
+    browser = await launch()
+    page = await browser.newPage()
+    await page.goto(url)
+    await page.pdf({'path': output_path, 'format': 'A4'})
+    await browser.close()
 
-    # Convert website to PDF
-    pdfkit.from_url('http://example.com', '/path/to/output.pdf', configuration=pdfkit_config)
+def html_to_pdf(url):
+    loop = asyncio.get_event_loop()
+    output_pdf_path = 'processed_files/output.pdf'
+    loop.run_until_complete(save_pdf(url, output_pdf_path))

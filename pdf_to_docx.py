@@ -1,6 +1,5 @@
 from pdf2docx import Converter
-import win32com.client as win32
-from docx import Document
+from docx2pdf import convert
 import os
 
 def pdf_to_docx(file_name):
@@ -20,19 +19,15 @@ def pdf_to_docx(file_name):
 
 def docx_to_pdf(file_name):
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() +  file_name[:-3] + 'docx'
-    # Create a new Word application instance
-    word_app = win32.gencache.EnsureDispatch('Word.Application')
+    dest = os.getcwd() +  file_name[:-3] + 'pdf'
+    # Specify the path of the input Word document
+    word_file = 'src'
 
-    # Open the Word document
-    doc = word_app.Documents.Open(src)
+    # Specify the path for the output PDF file
+    pdf_file = 'dest'
 
-    # Save the document as PDF
-    doc.SaveAs(dest, FileFormat=17)
-
-    # Close the document and quit the Word application
-    doc.Close()
-    word_app.Quit()
+    # Convert Word to PDF and save to the specified location
+    convert(word_file, pdf_file)
 
 if __name__ == '__main__':
-    pdf_to_docx('ADITYA PAL Resume.pdf')
+    pdf_to_docx('')
