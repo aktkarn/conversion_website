@@ -14,7 +14,7 @@ frontend:
       - pdf_to_xlsx.py
       - requirements.txt
       - templates/**  # Include the templates folder and its contents
-      - static/**     # Include the static folder and its contents
+      - static/**     # Include the static folder and its content
       - processed_files/**
       - uploads/**
 backend:
