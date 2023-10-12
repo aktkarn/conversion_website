@@ -79,4 +79,4 @@ def do_the_job(filename, file, convert_A_to_B=None):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
