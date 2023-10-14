@@ -52,7 +52,7 @@ def download(filename):
 def close(filename):
     option = request.args.get('option')  # Retrieve the 'option' parameter from the URL query string
     file_source = os.getcwd() + '\\uploads\\' + filename
-    file_dest_in = os.getcwd() + filename
+    file_dest_in = os.getcwd() +  '\\processed_files\\' + filename
     pos_of_convert_from = len(filename) - filename.find('.')
     pos_of_convert_to = option.find('to') + 3
     file_dest_out = os.getcwd() + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
