@@ -1,4 +1,5 @@
 import fitz  # PyMuPDF
+from docx import Document
 from docx2pdf import convert
 import os
 

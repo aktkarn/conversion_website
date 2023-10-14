@@ -55,7 +55,7 @@ def close(filename):
     file_dest_in = os.getcwd() +  '\\processed_files\\' + filename
     pos_of_convert_from = len(filename) - filename.find('.')
     pos_of_convert_to = option.find('to') + 3
-    file_dest_out = os.getcwd() + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
+    file_dest_out = os.getcwd() + '\\processed_files\\' + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
 
     os.remove(file_source)
     os.remove(file_dest_in)
