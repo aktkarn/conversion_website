@@ -79,4 +79,4 @@ def do_the_job(filename, file, convert_A_to_B=None):
 
 
 if __name__ == '__main__':
-    app.run(host='http://13.232.208.91:5000')
+    app.run(debug=False)
