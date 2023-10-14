@@ -6,7 +6,7 @@ import os
 
 def pdf_to_xlsx(file_name):
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() +  file_name[:-3] + 'xlsx'
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'xlsx'
 
     csv = tabula.read_pdf(src, pages='all')
 
@@ -18,8 +18,8 @@ def pdf_to_xlsx(file_name):
     return csv
 
 def xlsx_to_pdf(file_name):
-    src = 'uploads\\' + file_name
-    dest = 'processed_files\\' + file_name[:-3] + 'pdf'
+    src = os.getcwd() + '\\uploads\\' + file_name
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'pdf'
 
     wb = openpyxl.load_workbook(src)
     sheet = wb.active

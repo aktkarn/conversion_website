@@ -5,7 +5,7 @@ import os
 def pdf_to_docx(file_name):
 
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() +  file_name[:-3] + 'docx'
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'docx'
 
     # Open the PDF file
     pdf_document = fitz.open(src)
@@ -30,7 +30,7 @@ def pdf_to_docx(file_name):
 
 def docx_to_pdf(file_name):
     src = os.getcwd() + '\\uploads\\' + file_name
-    dest = os.getcwd() +  file_name[:-3] + 'pdf'
+    dest = os.getcwd() + '\\processed_files\\' + file_name[:-3] + 'pdf'
     # Specify the path of the input Word document
     word_file = 'src'
 

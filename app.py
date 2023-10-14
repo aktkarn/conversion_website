@@ -65,15 +65,15 @@ def close(filename):
 def do_the_job(filename, file, convert_A_to_B=None):
 
     if convert_A_to_B == 'pdf_to_xlsx':
-        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() +  filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         df_list = pdf_to_xlsx(filename) ## this gives list of different tables in the pdf
     elif convert_A_to_B == 'html_to_xlsx':
         df_list = html_to_xlsx(file, filename)
     elif convert_A_to_B == 'pdf_to_docx':
-        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() +  filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         pdf_to_docx(filename)
     elif convert_A_to_B == 'docx_to_pdf':
-        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() +  filename)
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         docx_to_pdf(filename)
 
 
