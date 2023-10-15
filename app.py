@@ -52,7 +52,7 @@ def download(filename):
 def close(filename):
     option = request.args.get('option')  # Retrieve the 'option' parameter from the URL query string
     file_source = os.getcwd() + '\\uploads\\' + filename
-    file_dest_in = os.getcwd() +  '\\processed_files\\' + filename
+    file_dest_in = os.getcwd() + '\\processed_files\\' + filename
     pos_of_convert_from = len(filename) - filename.find('.')
     pos_of_convert_to = option.find('to') + 3
     file_dest_out = os.getcwd() + '\\processed_files\\' + filename[:-pos_of_convert_from + 1] + option[pos_of_convert_to:]
@@ -61,7 +61,10 @@ def close(filename):
     os.remove(file_dest_in)
     os.remove(file_dest_out)
 
-    return 'Files removed successfully.'
+    return render_template('successful_deletion.html')
+
+
+
 def do_the_job(filename, file, convert_A_to_B=None):
 
     if convert_A_to_B == 'pdf_to_xlsx':
@@ -79,4 +82,5 @@ def do_the_job(filename, file, convert_A_to_B=None):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    # app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(debug=True)
