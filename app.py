@@ -64,9 +64,9 @@ def close(filename):
 
     return render_template('successful_deletion.html', success_message='File Removed Successfully')
 
-@app.route('/close', methods=['GET'])
-def close():
-    return (render_template('successful_deletion.html', success_message='No Files To Be Deleted'))
+# @app.route('/close', methods=['GET'])
+# def close():
+#     return (render_template('successful_deletion.html', success_message='No Files To Be Deleted'))
 
 
 
