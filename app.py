@@ -5,6 +5,7 @@ import os
 from html_to_xlsx import *
 from pdf_to_xlsx import *
 from pdf_to_docx import *
+from html_to_pdf import *
 
 app = Flask(__name__)
 
@@ -61,7 +62,11 @@ def close(filename):
     os.remove(file_dest_in)
     os.remove(file_dest_out)
 
-    return render_template('successful_deletion.html')
+    return render_template('successful_deletion.html', success_message='File Removed Successfully')
+
+@app.route('/close', methods=['GET'])
+def close():
+    return (render_template('successful_deletion.html', success_message='No Files To Be Deleted'))
 
 
 
@@ -70,8 +75,13 @@ def do_the_job(filename, file, convert_A_to_B=None):
     if convert_A_to_B == 'pdf_to_xlsx':
         shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         df_list = pdf_to_xlsx(filename) ## this gives list of different tables in the pdf
+    elif convert_A_to_B == 'xlsx_to_pdf':
+        shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
+        xlsx_to_pdf(file_name)
     elif convert_A_to_B == 'html_to_xlsx':
         df_list = html_to_xlsx(file, filename)
+    elif convert_A_to_B == 'html_to_pdf':
+        html_to_pdf(file)
     elif convert_A_to_B == 'pdf_to_docx':
         shutil.copy(os.getcwd() + '\\uploads\\' + filename, os.getcwd() + '\\processed_files\\' + filename)
         pdf_to_docx(filename)

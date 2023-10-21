@@ -14,7 +14,13 @@
       } else if (select.value === "pdf_to_xlsx") {
         fileInput.style.display = "block";
         linkInput.style.display = "none";
+      } else if (select.value === "xlsx_to_pdf") {
+        fileInput.style.display = "block";
+        linkInput.style.display = "none";
       } else if (select.value === "html_to_xlsx") {
+        fileInput.style.display = "none";
+        linkInput.style.display = "block";
+      } else if (select.value === "html_to_pdf") {
         fileInput.style.display = "none";
         linkInput.style.display = "block";
       } else if (select.value === "pdf_to_docx") {
@@ -39,7 +45,9 @@
     <select name="option" id="option" onchange="toggleInputs()">
       <option value="none"> Choose One of the following </option>
       <option value="pdf_to_xlsx">Convert PDF to EXCEL</option>
+      <option value="xlsx_to_pdf">Convert EXCEL to PDF</option>
       <option value="html_to_xlsx">Convert HTML to EXCEL</option>
+      <option value="html_to_pdf">Convert HTML to PDF</option>
       <option value="pdf_to_docx">Convert PDF to DOCX</option>
       <option value="docx_to_pdf">Convert DOCX to PDF</option>
     </select>
